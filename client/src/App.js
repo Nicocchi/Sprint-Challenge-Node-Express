@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ProjectList from './components/projects/ProjectList';
-import './App.css';
+
+import Styled from 'styled-components';
+
+const Wrapper = Styled.div`
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+`;
 
 class App extends Component {
   state = {
@@ -24,9 +31,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Wrapper>
         <ProjectList projects={this.state.projects} />
-      </div>
+      </Wrapper>
     );
   }
 }
