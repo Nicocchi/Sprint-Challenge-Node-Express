@@ -68,4 +68,15 @@ router.put('/:id', validation, (req, res) => {
         .catch(err => res.status(500).send({error: `The project could not be modified. | ${err}`}));
 });
 
+// Delete an existing project
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    projectsDb.remove(id)
+        .then(rmvdProj => {
+            if(!rmvdProj) return res.status(422).send({error: `Project does not exist by that ID: ${id}`});
+            res.status(200).json(rmvdProj);
+        })
+        .catch(err => res.status(500).send({error: `The project could not be removed. | ${err}`}));
+});
+
 module.exports = router;
