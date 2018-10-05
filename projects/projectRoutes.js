@@ -4,8 +4,6 @@ const projectsDb = require('../data/helpers/projectModel.js');
 const router = express.Router();
 
 const validation = (req, res, next) => {
-    let name = '';
-    if(req.body.name) name = req.body.name;
     // Check if the name or description is not empty, if it is empty, return an error
     if ( !req.body.name || !req.body.description ) return res.status(400).send({error: 'Please provide a valid name, description.'});
 
@@ -42,8 +40,8 @@ router.post('/', validation, (req, res) => {
 
     // Insert the new project into the database
     projectsDb.insert(newProject)
-        .then(projectId => {
-            projectsDb.get(projectId.id)
+        .then(project => {
+            projectsDb.get(project.id)
                 .then(proj => {
                     if(!proj) return res.status(422).send({error: `Project does not exist by that ID: ${id}`});
 
